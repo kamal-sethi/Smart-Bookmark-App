@@ -243,7 +243,7 @@ I would also explore AI-assisted bookmark descriptions and automatic metadata ex
 ## Clone Repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/kamal-sethi/Smart-Bookmark-App.git
 ```
 
 ## Install Dependencies
