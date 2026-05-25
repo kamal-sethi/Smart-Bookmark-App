@@ -1,8 +1,12 @@
 export interface Bookmark {
   id: string
+  userId: string
   title: string
   url: string
-  description: string
-  category: string
-  createdAt: Date
+  createdAt: string | null
+}
+
+export interface BookmarkFormValues {
+  title: string
+  url: string
 }

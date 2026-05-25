@@ -13,30 +13,33 @@ import {
 interface DeleteConfirmDialogProps {
   open: boolean
   onOpenChange: (open: boolean) => void
-  onConfirm: () => void
+  onConfirm: () => Promise<void>
+  isDeleting?: boolean
 }
 
 export function DeleteConfirmDialog({
   open,
   onOpenChange,
   onConfirm,
+  isDeleting = false,
 }: DeleteConfirmDialogProps) {
   return (
     <AlertDialog open={open} onOpenChange={onOpenChange}>
-      <AlertDialogContent className="w-[90vw] sm:max-w-md">
+      <AlertDialogContent className="w-[min(92vw,28rem)] rounded-2xl px-4 py-5 sm:px-6 sm:py-6">
         <AlertDialogHeader>
           <AlertDialogTitle className="text-lg sm:text-xl">Delete Bookmark?</AlertDialogTitle>
           <AlertDialogDescription className="text-sm">
             This action cannot be undone. The bookmark will be permanently removed.
           </AlertDialogDescription>
         </AlertDialogHeader>
-        <div className="flex flex-col-reverse sm:flex-row gap-2 sm:gap-3 justify-end pt-2">
-          <AlertDialogCancel className="h-9 sm:h-10 text-sm">Cancel</AlertDialogCancel>
+        <div className="flex flex-col-reverse justify-end gap-2 pt-2 sm:flex-row sm:gap-3">
+          <AlertDialogCancel className="h-11 text-sm sm:h-10" disabled={isDeleting}>Cancel</AlertDialogCancel>
           <AlertDialogAction
             onClick={onConfirm}
-            className="h-9 sm:h-10 text-sm bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            disabled={isDeleting}
+            className="h-11 text-sm bg-destructive text-destructive-foreground hover:bg-destructive/90 sm:h-10"
           >
-            Delete
+            {isDeleting ? 'Deleting...' : 'Delete'}
           </AlertDialogAction>
         </div>
       </AlertDialogContent>

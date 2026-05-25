@@ -1,41 +1,13 @@
-'use client'
-
-import { useState } from 'react'
+import { redirect } from 'next/navigation'
 import { LandingPage } from '@/components/landing-page'
-import { AuthDialog } from '@/components/auth-dialog'
-import { Dashboard } from '@/components/dashboard'
+import { getCurrentUser } from '@/lib/supabase/server'
 
-export default function Page() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const [authDialogOpen, setAuthDialogOpen] = useState(false)
-  const [userEmail, setUserEmail] = useState('')
+export default async function Page() {
+  const user = await getCurrentUser()
 
-  const handleGetStarted = () => {
-    setAuthDialogOpen(true)
+  if (user) {
+    redirect('/dashboard')
   }
 
-  const handleAuthenticate = (email: string) => {
-    setUserEmail(email)
-    setIsAuthenticated(true)
-  }
-
-  const handleLogout = () => {
-    setIsAuthenticated(false)
-    setUserEmail('')
-  }
-
-  if (isAuthenticated) {
-    return <Dashboard userEmail={userEmail} onLogout={handleLogout} />
-  }
-
-  return (
-    <>
-      <LandingPage onGetStarted={handleGetStarted} />
-      <AuthDialog 
-        open={authDialogOpen}
-        onOpenChange={setAuthDialogOpen}
-        onAuthenticate={handleAuthenticate}
-      />
-    </>
-  )
+  return <LandingPage />
 }

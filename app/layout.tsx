@@ -1,6 +1,9 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import { getCurrentUser } from '@/lib/supabase/server'
+import { AuthProvider } from '@/components/auth-provider'
+import { Toaster } from '@/components/ui/toaster'
 import './globals.css'
 
 const _geist = Geist({ subsets: ["latin"] });
@@ -29,15 +32,18 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const user = await getCurrentUser()
+
   return (
     <html lang="en" className="bg-background">
       <body className="font-sans antialiased">
-        {children}
+        <AuthProvider initialUser={user}>{children}</AuthProvider>
+        <Toaster />
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>

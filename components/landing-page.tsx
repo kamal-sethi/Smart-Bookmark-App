@@ -1,92 +1,98 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
+import { useState } from 'react'
 import { Bookmark } from 'lucide-react'
+import { AuthDialog } from '@/components/auth-dialog'
+import { Button } from '@/components/ui/button'
 
-interface LandingPageProps {
-  onGetStarted: () => void
-}
+export function LandingPage() {
+  const [authDialogOpen, setAuthDialogOpen] = useState(false)
 
-export function LandingPage({ onGetStarted }: LandingPageProps) {
   return (
-    <main className="min-h-screen bg-gradient-to-br from-background via-background to-muted/30">
-      {/* Navigation */}
-      <nav className="border-b border-border/40 backdrop-blur-sm sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Bookmark className="w-6 h-6 text-primary" />
-            <span className="text-lg font-semibold text-foreground">KeenFlow</span>
-          </div>
-          <Button onClick={onGetStarted} variant="default" size="sm">
-            Get Started
-          </Button>
-        </div>
-      </nav>
-
-      {/* Hero Section */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-32">
-        <div className="text-center space-y-8">
-          {/* Main Headline */}
-          <div className="space-y-4">
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-semibold text-foreground text-pretty leading-tight">
-              Your bookmarks, organized beautifully
-            </h1>
-            <p className="text-xl sm:text-2xl text-muted-foreground max-w-3xl mx-auto text-pretty">
-              Save, organize, and find your favorite links instantly. A minimal bookmark manager designed for productivity.
-            </p>
-          </div>
-
-          {/* CTA Button */}
-          <div className="pt-8">
-            <Button 
-              onClick={onGetStarted}
-              size="lg"
-              className="text-base h-12 px-8"
+    <>
+      <main className="min-h-dvh overflow-x-hidden bg-gradient-to-br from-background via-background to-muted/30">
+        <nav className="sticky top-0 z-50 border-b border-border/40 backdrop-blur-sm">
+          <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:px-6 sm:py-4 lg:px-8">
+            <div className="flex min-w-0 items-center gap-2.5">
+              <Bookmark className="h-5 w-5 shrink-0 text-primary sm:h-6 sm:w-6" />
+              <span className="truncate text-base font-semibold text-foreground sm:text-lg">
+                KeenFlow
+              </span>
+            </div>
+            <Button
+              onClick={() => setAuthDialogOpen(true)}
+              variant="default"
+              size="sm"
+              className="h-10 shrink-0 px-4 sm:px-5"
             >
-              Start Organizing
+              Get Started
             </Button>
           </div>
+        </nav>
 
-          {/* Feature Highlights */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 pt-16 border-t border-border/40">
-            <div className="space-y-3">
-              <div className="flex justify-center">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
-                  <Bookmark className="w-6 h-6 text-primary" />
-                </div>
-              </div>
-              <h3 className="font-semibold text-foreground">Quick Save</h3>
-              <p className="text-sm text-muted-foreground">
-                Save any link with one click and organize it instantly
+        <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8 lg:py-32">
+          <div className="space-y-10 text-center sm:space-y-12">
+            <div className="space-y-4 sm:space-y-5">
+              <h1 className="mx-auto max-w-5xl text-balance text-4xl font-semibold leading-[1.05] text-foreground min-[420px]:text-5xl sm:text-6xl lg:text-7xl">
+                Your bookmarks, organized beautifully
+              </h1>
+              <p className="mx-auto max-w-3xl text-pretty text-base leading-7 text-muted-foreground sm:text-xl sm:leading-8 lg:text-2xl">
+                Save, organize, and find your favorite links instantly. A minimal bookmark
+                manager designed for productivity.
               </p>
             </div>
 
-            <div className="space-y-3">
-              <div className="flex justify-center">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
-                  <Bookmark className="w-6 h-6 text-primary" />
-                </div>
-              </div>
-              <h3 className="font-semibold text-foreground">Fast Search</h3>
-              <p className="text-sm text-muted-foreground">
-                Find any bookmark instantly with powerful search
-              </p>
+            <div className="pt-2 sm:pt-4">
+              <Button
+                onClick={() => setAuthDialogOpen(true)}
+                size="lg"
+                className="h-11 min-w-[12rem] px-6 text-sm sm:h-12 sm:px-8 sm:text-base"
+              >
+                Start Organizing
+              </Button>
             </div>
 
-            <div className="space-y-3">
-              <div className="flex justify-center">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
-                  <Bookmark className="w-6 h-6 text-primary" />
+            <div className="grid grid-cols-1 gap-4 border-t border-border/40 pt-10 sm:gap-6 sm:pt-14 lg:grid-cols-3 lg:gap-8 lg:pt-16">
+              <div className="space-y-3">
+                <div className="flex justify-center">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-primary/10 sm:h-12 sm:w-12">
+                    <Bookmark className="h-6 w-6 text-primary" />
+                  </div>
                 </div>
+                <h3 className="font-semibold text-foreground">Quick Save</h3>
+                <p className="text-sm text-muted-foreground">
+                  Save any link with one click and organize it instantly
+                </p>
               </div>
-              <h3 className="font-semibold text-foreground">Beautiful Design</h3>
-              <p className="text-sm text-muted-foreground">
-                Minimal interface that gets out of your way
-              </p>
+
+              <div className="space-y-3">
+                <div className="flex justify-center">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-primary/10 sm:h-12 sm:w-12">
+                    <Bookmark className="h-6 w-6 text-primary" />
+                  </div>
+                </div>
+                <h3 className="font-semibold text-foreground">Fast Search</h3>
+                <p className="text-sm text-muted-foreground">
+                  Find any bookmark instantly with powerful search
+                </p>
+              </div>
+
+              <div className="space-y-3">
+                <div className="flex justify-center">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-primary/10 sm:h-12 sm:w-12">
+                    <Bookmark className="h-6 w-6 text-primary" />
+                  </div>
+                </div>
+                <h3 className="font-semibold text-foreground">Beautiful Design</h3>
+                <p className="text-sm text-muted-foreground">
+                  Minimal interface that gets out of your way
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
-    </main>
+        </section>
+      </main>
+      <AuthDialog open={authDialogOpen} onOpenChange={setAuthDialogOpen} />
+    </>
   )
 }
